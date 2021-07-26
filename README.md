@@ -1,10 +1,11 @@
 # ios_green_matting
 ios版本的绿幕抠图, 各种绿色完整的抠去. 
 
-- SDK是我们商用版本, 付费. 此为最简单的演示, 方便您评估使用.
+- SDK是我们商用版本, 付费. 
+- 此为最简单的演示, 方便您评估使用.
 - 我们完整的演示请下载:
-https://www.pgyer.com/LanSongIOS
-https://www.pgyer.com/LanSongAndroid
+- https://www.pgyer.com/LanSongIOS
+- https://www.pgyer.com/LanSongAndroid
 
 ### 完整功能介绍(中文版本)
 - 输入和控制功能:相机的图像采集, 相机控制, 画面UI布局, 设置背景图片或视频, 增加挂件, 相机画面的缩放移动手指, 贴纸,绿幕抠图调节, 上层的UI自定义显示, 各种其他的图像输入接口(多机位), 这些多图像的层级调节等
