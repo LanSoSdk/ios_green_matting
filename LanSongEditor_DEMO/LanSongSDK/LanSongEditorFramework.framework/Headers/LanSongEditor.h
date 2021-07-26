@@ -1,0 +1,184 @@
+//
+//  LanSongEditor.h
+//  LanSongEditor
+//
+//  Created by sno on 16/8/3.
+//  Copyright © 2016年 sno. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+FOUNDATION_EXPORT double LanSongEditorVersionNumber;
+
+FOUNDATION_EXPORT const unsigned char LanSongEditorVersionString[];
+
+/**
+ 当前此SDK的版本号.
+ 内部使用,请勿修改.
+ */
+#define  LANSONGEDITOR_VISION  "4.5.8"
+
+#define  LANSONGEDITOR_BUILD_TIME  "20210721_0859"
+
+
+//所有类的父类
+#import <LanSongEditorFramework/LSOObject.h>
+
+#import <LanSongEditorFramework/LSOCameraView.h>
+#import <LanSongEditorFramework/LSOCamera.h>
+#import <LanSongEditorFramework/LSOCameraLive.h>
+
+
+//aex的一些类---------------------------
+#import <LanSongEditorFramework/LSOAexModule.h>
+#import <LanSongEditorFramework/LSOAexImage.h>
+#import <LanSongEditorFramework/LSOAexText.h>
+#import <LanSongEditorFramework/LSOAexPlayer.h>
+#import <LanSongEditorFramework/LSOAexDisplayView.h>
+#import <LanSongEditorFramework/LSOAexOption.h>
+
+
+#import <LanSongEditorFramework/LSOLayer.h>
+#import <LanSongEditorFramework/LSOAnimation.h>
+#import <LanSongEditorFramework/LSOEffect.h>
+#import <LanSongEditorFramework/LSOAudioLayer.h>
+
+#import <LanSongEditorFramework/LSOEditPlayer.h>
+#import <LanSongEditorFramework/LSODisplayView.h>
+#import <LanSongEditorFramework/LanSongLog.h>
+
+
+#import <LanSongEditorFramework/LSOCamLayer.h>
+
+
+//segment
+#import <LanSongEditorFramework/VisionSDKSegmentPlayer.h>
+
+
+#import <LanSongEditorFramework/LSOSegment2.h>
+
+// vlog的类
+
+#import <LanSongEditorFramework/LSOVLogModule.h>
+#import <LanSongEditorFramework/LSOVLogAsset.h>
+#import <LanSongEditorFramework/LSOVLogPlayer.h>
+#import <LanSongEditorFramework/LSOVLogDisplayView.h>
+#import <LanSongEditorFramework/LSOVLogLayer.h>
+
+
+// 各种播放器;
+#import <LanSongEditorFramework/LSOBookPagePlayer.h>
+#import <LanSongEditorFramework/LSOStickerPlayer.h>
+#import <LanSongEditorFramework/LSOAddAudioPlayer.h>
+#import <LanSongEditorFramework/LSOAudioLayer2.h>
+
+
+#import <LanSongEditorFramework/VisionSDKSegmentVideo.h>
+
+
+
+#import <LanSongEditorFramework/LSOVideoCompositionExecute.h>
+
+#import <LanSongEditorFramework/LSOSegmentImage.h>
+#import <LanSongEditorFramework/VisionSDKSegmentOneFrame.h>
+#import <LanSongEditorFramework/LSOImageEditPlayer.h>
+#import <LanSongEditorFramework/LSOAexSegmentPlayer.h>
+#import <LanSongEditorFramework/LSOAexSegmentModule.h>
+
+
+#import <LanSongEditorFramework/VisionSDKGetThumbImage.h>
+
+
+#import <LanSongEditorFramework/LSOAudioRecorder.h>
+#import <LanSongEditorFramework/LanSong.h>
+
+
+#import <LanSongEditorFramework/LSOXAssetInfo.h>
+
+#import <LanSongEditorFramework/LSOFileUtil.h>
+#import <LanSongEditorFramework/LSOImageUtil.h>
+#import <LanSongEditorFramework/LSOAeView.h>
+#import <LanSongEditorFramework/LSOAeImage.h>
+#import <LanSongEditorFramework/LSOAeText.h>
+#import <LanSongEditorFramework/LSOAEVideoSetting.h>
+
+@interface LanSongEditor : NSObject
+
+/**
+  获取当前sdk的限制时间中的年份.
+ */
++(int)getLimitedYear;
+
+/**
+ 获取当前sdk的限制时间中的月份
+
+ @return
+ */
++(int)getLimitedMonth;
+
+/*  获取当前sdk的key可升级制时间中的年份 */
++(int)getUpdateLimitedYear;
+
+
+/*  获取当前sdk的key可升级制时间中的月份 */
++(int)getUpdateLimitedMonth;
+
+/**
+ 返回当前sdk的版本号.
+
+ @return
+ */
++(NSString *)getVersion;
+/**
+ 初始化sdk,
+
+ @return
+ */
++(BOOL)initSDK:(NSString *)name;
+
+/**
+ 使用完毕sdk后, 注销sdk,
+ (当前内部执行为空,可以不调用. 仅预留)
+ */
++(void)unInitSDK;
+
+
+
+/**
+ 设置内部文件创建在哪个文件夹下;
+ 
+ 如果不设置,默认在当前Document/lansongBox下;
+ 
+ 举例:
+ NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+ NSString *documentsDirectory =[paths objectAtIndex:0];
+ NSString *tmpDir = [documentsDirectory stringByAppendingString:@"/box2"];
+ [LSOFileUtil setGenTempFileDir:tmpDir];
+ 
+ 建议在initSDK的时候设置;
+ */
++(void)setTempFileDir:(NSString *)path;
+/**
+ 我们的内部默认以当前时间为文件名; 比如:20180906094232_092.mp4
+ 你可以在这个时间前面增加一些字符串,比如增加用户名,手机型号等等;
+ 举例:
+ prefix:xiaoming_iphone6s; 则生成的文件名是: xiaoming_iphone6s20180906094232_092.mp4
+ @param prefix
+ */
++(void)setTempFilePrefix:(NSString *)prefix;
+/**
+ 设置在编码的时候, 编码成 编辑模式的视频;
+ 我们内部定义一种视频格式,命名为:编辑模式;
+ 这样的视频: 会极速的定位到指定的一帧;像翻书一样的翻看每一帧视频;
+ 
+ @param as 是否为编辑模式. 默认不是编辑模式;
+ */
++(void)setEncodeVideoAsEditMode:(BOOL)as;
+
+
++(NSString *)getDemoServerUrl;
+
+
+@end
+
+
